@@ -3,609 +3,1867 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Omar Derdare — Fullstack Developer crafting high-performance web experiences.">
+
+    <meta name="description"
+          content="Omar Derdare — Fullstack Developer crafting high-performance web experiences.">
+
     <title>Omar Derdare | Fullstack Developer</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Oswald', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ["Inter", "sans-serif"],
+                        display: ["Oswald", "sans-serif"],
+                        mono: ["JetBrains Mono", "monospace"]
                     },
+
                     colors: {
                         brand: {
-                            black: '#0a0a0a',
-                            dark: '#121212',
-                            gray: '#2a2a2a',
-                            accent: '#FF3B30',
-                            white: '#f5f5f5'
+                            black: "#0a0a0a",
+                            dark: "#121212",
+                            gray: "#2a2a2a",
+                            accent: "#FF3B30",
+                            white: "#f5f5f5"
                         }
                     },
+
                     animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                        'marquee': 'marquee 25s linear infinite',
-                        'marquee2': 'marquee2 25s linear infinite',
-                        'scroll-down': 'scrollDown 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite',
-                        'blink': 'blink 1s step-end infinite',
-                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        "spin-slow": "spin 12s linear infinite",
+                        marquee: "marquee 25s linear infinite",
+                        marquee2: "marquee2 25s linear infinite",
+                        "scroll-down":
+                            "scrollDown 1.5s cubic-bezier(0.77,0,0.175,1) infinite",
+                        blink: "blink 1s step-end infinite",
+                        "pulse-glow": "pulseGlow 3s ease-in-out infinite"
                     },
+
                     keyframes: {
                         marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' },
+                            "0%": {
+                                transform: "translateX(0%)"
+                            },
+                            "100%": {
+                                transform: "translateX(-100%)"
+                            }
                         },
+
                         marquee2: {
-                            '0%': { transform: 'translateX(100%)' },
-                            '100%': { transform: 'translateX(0%)' },
+                            "0%": {
+                                transform: "translateX(100%)"
+                            },
+                            "100%": {
+                                transform: "translateX(0%)"
+                            }
                         },
+
                         scrollDown: {
-                            '0%': { transform: 'translateY(-100%)' },
-                            '100%': { transform: 'translateY(100%)' }
+                            "0%": {
+                                transform: "translateY(-100%)"
+                            },
+                            "100%": {
+                                transform: "translateY(100%)"
+                            }
                         },
+
                         blink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
+                            "0%, 100%": {
+                                opacity: "1"
+                            },
+                            "50%": {
+                                opacity: "0"
+                            }
                         },
+
                         pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 20px rgba(255,59,48,0.3)' },
-                            '50%': { boxShadow: '0 0 40px rgba(255,59,48,0.6)' },
+                            "0%, 100%": {
+                                boxShadow:
+                                    "0 0 20px rgba(255,59,48,0.3)"
+                            },
+                            "50%": {
+                                boxShadow:
+                                    "0 0 40px rgba(255,59,48,0.6)"
+                            }
                         }
                     }
                 }
             }
-        }
+        };
     </script>
+
     <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+    /* --- Image slider (3 images per card) --- */
+    .portfolio-slider-wrapper {
+        position: relative;
+    }
+    .portfolio-image {
+        position: relative;
+        overflow: hidden;
+    }
+    .slider-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+    .slider-slide.slide-active {
+        opacity: 1;
+    }
+    .slider-dots {
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 6px;
+        z-index: 20;
+    }
+    .slider-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: rgba(255,255,255,0.45);
+        transition: all 0.3s ease;
+        display: block;
+    }
+    .slider-dot.active {
+        background: #FF3B30;
+        width: 18px;
+    }
+    </style>
 </head>
+
 <body class="antialiased selection:bg-brand-accent selection:text-white">
 
-    <!-- Matrix Rain Background -->
+    <!-- Matrix Background -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- Scanlines Overlay -->
+    <!-- Scanlines -->
     <div class="scanlines"></div>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/212600000000" target="_blank" class="whatsapp-float hover-trigger" aria-label="Chat on WhatsApp">
+    <!-- Grain -->
+    <div
+        class="fixed inset-0 pointer-events-none z-[1] opacity-[0.03] bg-grain">
+    </div>
+
+    <!-- WhatsApp -->
+    <a
+        href="https://wa.me/212600000000"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-float hover-trigger"
+        aria-label="Chat on WhatsApp"
+    >
         <i class="ph ph-whatsapp-logo"></i>
-        <span class="whatsapp-tooltip">Let's chat on WhatsApp</span>
+        <span class="whatsapp-tooltip">
+            Let's chat on WhatsApp
+        </span>
     </a>
 
     <!-- Page Loader -->
-    <div id="page-loader" class="fixed inset-0 bg-brand-black z-[100] flex items-center justify-center">
+    <div
+        id="page-loader"
+        class="fixed inset-0 bg-brand-black z-[100] flex items-center justify-center"
+    >
         <div class="text-center">
-            <div class="font-mono text-brand-accent text-sm mb-4 typing-loader">&lt;loading /&gt;</div>
-            <h1 class="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter loader-text">
+
+            <div
+                class="font-mono text-brand-accent text-sm mb-4 typing-loader"
+            >
+                &lt;loading /&gt;
+            </div>
+
+            <h1
+                class="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter loader-text"
+            >
                 OMAR<span class="text-brand-accent">.</span>
             </h1>
-            <div class="mt-6 w-32 h-[2px] bg-white/10 mx-auto overflow-hidden">
+
+            <div
+                class="mt-6 w-32 h-[2px] bg-white/10 mx-auto overflow-hidden"
+            >
                 <div class="h-full bg-brand-accent loader-bar"></div>
             </div>
+
         </div>
     </div>
 
-    <!-- Custom Cursor -->
+    <!-- Cursor -->
     <div class="cursor-dot block"></div>
     <div class="cursor-outline block"></div>
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[1] opacity-[0.03] bg-grain"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center text-white transition-all duration-300 bg-black/50 backdrop-blur-md border-b border-white/5" id="navbar">
-        <a href="index.html" class="logo font-display font-bold text-3xl tracking-tighter hover-trigger relative z-50">
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav
+        id="navbar"
+        class="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center text-white transition-all duration-300 bg-black/50 backdrop-blur-md border-b border-white/5"
+    >
+
+        <a
+            href="index.html"
+            class="logo font-display font-bold text-3xl tracking-tighter hover-trigger relative z-50"
+        >
             OMAR<span class="text-brand-accent">.</span>
         </a>
+
         <div class="hidden md:flex items-center space-x-12">
+
+            <!-- Dropdown -->
             <div class="relative group">
-                <button class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors flex items-center gap-1 hover-trigger">
-                    Menu <i class="ph ph-caret-down"></i>
+
+                <button
+                    class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors flex items-center gap-1 hover-trigger"
+                >
+                    Menu
+                    <i class="ph ph-caret-down"></i>
                 </button>
-                <div class="absolute top-full left-0 mt-4 w-48 bg-brand-dark border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-2xl">
-                    <a href="about.html" class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors">About</a>
-                    <a href="projects.html" class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors">Projects</a>
-                    <a href="services.html" class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors">Services</a>
-                    <a href="contact.html" class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors">Contact</a>
+
+                <div
+                    class="absolute top-full left-0 mt-4 w-48 bg-brand-dark border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-2xl"
+                >
+                    <a
+                        href="about.html"
+                        class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors"
+                    >
+                        About
+                    </a>
+
+                    <a
+                        href="projects.html"
+                        class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors"
+                    >
+                        Projects
+                    </a>
+
+                    <a
+                        href="services.html"
+                        class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors"
+                    >
+                        Services
+                    </a>
+
+                    <a
+                        href="contact.html"
+                        class="block px-6 py-3 text-sm font-sans hover:bg-white hover:text-black transition-colors"
+                    >
+                        Contact
+                    </a>
                 </div>
+
             </div>
-            <a href="about.html" class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger">About</a>
-            <a href="projects.html" class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger">Work</a>
-            <a href="contact.html" class="bg-white text-black px-6 py-2 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger">
+
+            <a
+                href="about.html"
+                class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger"
+            >
+                About
+            </a>
+
+            <a
+                href="projects.html"
+                class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger"
+            >
+                Work
+            </a>
+
+            <a
+                href="contact.html"
+                class="bg-white text-black px-6 py-2 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger"
+            >
                 Hire Me
             </a>
+
         </div>
-        <button class="hamburger md:hidden hover-trigger z-50 relative focus:outline-none" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
+
+        <!-- Mobile Button -->
+        <button
+            class="hamburger md:hidden hover-trigger z-50 relative focus:outline-none"
+            aria-label="Toggle menu"
+            type="button"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
+
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu fixed inset-0 bg-brand-black/95 backdrop-blur-xl z-40 flex flex-col opacity-0 invisible transition-all duration-500 overflow-hidden pt-24">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="container mx-auto px-8 h-full flex flex-col justify-center relative z-10">
+
+    <!-- ================= MOBILE MENU ================= -->
+
+    <div
+        class="mobile-menu fixed inset-0 bg-brand-black/95 backdrop-blur-xl z-40 flex flex-col opacity-0 invisible transition-all duration-500 overflow-hidden pt-24"
+    >
+
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"
+        ></div>
+
+        <div
+            class="container mx-auto px-8 h-full flex flex-col justify-center relative z-10"
+        >
+
             <div class="flex flex-col space-y-2">
-                <a href="index.html" class="menu-item group mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors" data-index="01">Home</a>
-                <a href="about.html" class="menu-item group mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors" data-index="02">About</a>
-                <a href="projects.html" class="menu-item group mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors" data-index="03">Projects</a>
-                <a href="services.html" class="menu-item group mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors" data-index="04">Services</a>
-                <a href="contact.html" class="menu-item group mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors" data-index="05">Contact</a>
+
+                <a
+                    href="index.html"
+                    class="menu-item mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="about.html"
+                    class="menu-item mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors"
+                >
+                    About
+                </a>
+
+                <a
+                    href="projects.html"
+                    class="menu-item mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors"
+                >
+                    Projects
+                </a>
+
+                <a
+                    href="services.html"
+                    class="menu-item mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors"
+                >
+                    Services
+                </a>
+
+                <a
+                    href="contact.html"
+                    class="menu-item mobile-link font-display text-5xl md:text-6xl uppercase font-bold text-white hover:text-brand-accent transition-colors"
+                >
+                    Contact
+                </a>
+
             </div>
-            <div class="mt-12 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-start gap-8 menu-details opacity-0 translate-y-8">
+
+            <div
+                class="mt-12 pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-start gap-8 menu-details opacity-0 translate-y-8"
+            >
+
                 <div>
-                    <h4 class="font-display text-sm uppercase tracking-widest text-brand-accent mb-2">Location</h4>
-                    <p class="font-sans text-sm text-gray-400">Available Worldwide<br>Remote / On-site</p>
+                    <h4
+                        class="font-display text-sm uppercase tracking-widest text-brand-accent mb-2"
+                    >
+                        Location
+                    </h4>
+
+                    <p class="font-sans text-sm text-gray-400">
+                        Available Worldwide<br>
+                        Remote / On-site
+                    </p>
                 </div>
+
                 <div>
-                    <h4 class="font-display text-sm uppercase tracking-widest text-brand-accent mb-2">Connect</h4>
+                    <h4
+                        class="font-display text-sm uppercase tracking-widest text-brand-accent mb-2"
+                    >
+                        Connect
+                    </h4>
+
                     <div class="flex gap-4 text-xl">
-                        <a href="#" class="hover:text-brand-accent transition-colors"><i class="ph ph-github-logo"></i></a>
-                        <a href="#" class="hover:text-brand-accent transition-colors"><i class="ph ph-linkedin-logo"></i></a>
-                        <a href="#" class="hover:text-brand-accent transition-colors"><i class="ph ph-x-logo"></i></a>
-                        <a href="#" class="hover:text-brand-accent transition-colors"><i class="ph ph-envelope-simple"></i></a>
+
+                        <a href="#" class="hover:text-brand-accent transition-colors">
+                            <i class="ph ph-github-logo"></i>
+                        </a>
+
+                        <a href="#" class="hover:text-brand-accent transition-colors">
+                            <i class="ph ph-linkedin-logo"></i>
+                        </a>
+
+                        <a href="#" class="hover:text-brand-accent transition-colors">
+                            <i class="ph ph-x-logo"></i>
+                        </a>
+
+                        <a href="#" class="hover:text-brand-accent transition-colors">
+                            <i class="ph ph-envelope-simple"></i>
+                        </a>
+
                     </div>
                 </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- HERO SECTION -->
-    <header class="relative w-full min-h-screen md:h-screen flex items-center justify-center overflow-hidden bg-brand-black pt-28 md:pt-20 pb-12 md:pb-0" id="hero-section">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-accent/20 rounded-full blur-[120px] opacity-30"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] opacity-30"></div>
 
-        <div class="relative z-10 w-full max-w-[1400px] px-6 h-auto md:h-[80vh] flex flex-col md:flex-row items-center justify-center" id="hero-content">
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
-                <h1 class="font-display text-[15vw] leading-none font-bold hero-text-stroke opacity-30" data-text="CODE">CODE</h1>
+    <!-- ================= HERO ================= -->
+
+    <header
+        id="hero-section"
+        class="relative w-full min-h-screen md:h-screen flex items-center justify-center overflow-hidden bg-brand-black pt-28 md:pt-20 pb-12 md:pb-0"
+    >
+
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-accent/20 rounded-full blur-[120px] opacity-30"
+        ></div>
+
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] opacity-30"
+        ></div>
+
+        <div
+            id="hero-content"
+            class="relative z-10 w-full max-w-[1400px] px-6 h-auto md:h-[80vh] flex flex-col md:flex-row items-center justify-center"
+        >
+
+            <!-- Background Text -->
+            <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
+            >
+                <h1
+                    class="font-display text-[15vw] leading-none font-bold hero-text-stroke opacity-30"
+                    data-text="CODE"
+                >
+                    CODE
+                </h1>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 w-full h-auto md:h-full items-center relative z-10">
-                <!-- Small Terminal (Mobile only) -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-12 gap-8 w-full h-auto md:h-full items-center relative z-10"
+            >
+
+                <!-- Mobile Terminal -->
                 <div class="flex md:hidden w-full justify-center mb-6">
+
                     <div class="terminal-window terminal-window-sm w-full max-w-xs">
+
                         <div class="terminal-header">
                             <div class="terminal-dot red"></div>
                             <div class="terminal-dot yellow"></div>
                             <div class="terminal-dot green"></div>
                             <span class="terminal-title">bash</span>
                         </div>
+
                         <div class="terminal-body">
-                            <div><span class="prompt">$</span> <span class="cmd">npm run dev</span></div>
-                            <div class="mt-1"><span class="string">> Ready on localhost:3000</span></div>
+
+                            <div>
+                                <span class="prompt">$</span>
+                                <span class="cmd">npm run dev</span>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="string">
+                                    &gt; Ready on localhost:3000
+                                </span>
+                            </div>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Left Terminal (Desktop only) -->
-                <div class="md:col-span-3 hidden md:flex flex-col justify-between md:h-2/3 mb-8 md:mb-0">
+
+                <!-- Desktop Terminal -->
+                <div
+                    class="md:col-span-3 hidden md:flex flex-col justify-between md:h-2/3 mb-8 md:mb-0"
+                >
+
                     <div class="terminal-window w-full">
+
                         <div class="terminal-header">
                             <div class="terminal-dot red"></div>
                             <div class="terminal-dot yellow"></div>
                             <div class="terminal-dot green"></div>
-                            <span class="terminal-title">bash — omar@dev</span>
+                            <span class="terminal-title">
+                                bash — omar@dev
+                            </span>
                         </div>
+
                         <div class="terminal-body">
-                            <div><span class="prompt">$</span> <span class="cmd">npm run dev</span></div>
-                            <div class="mt-2"><span class="comment">// Server booting...</span></div>
-                            <div class="mt-1"><span class="string">> Ready on localhost:3000</span></div>
-                            <div class="mt-1"><span class="keyword">const</span> <span class="function">dev</span> = <span class="string">'Omar Derdare'</span>;</div>
-                            <div class="mt-1"><span class="keyword">import</span> { <span class="function">passion</span> } <span class="keyword">from</span> <span class="string">'./heart'</span>;</div>
-                            <div class="mt-1"><span class="prompt">$</span> <span class="cmd">git status</span></div>
-                            <div class="mt-1"><span class="string">On branch main</span></div>
-                            <div class="mt-1"><span class="number">42</span> <span class="string">commits ahead</span></div>
+
+                            <div>
+                                <span class="prompt">$</span>
+                                <span class="cmd">npm run dev</span>
+                            </div>
+
+                            <div class="mt-2">
+                                <span class="comment">
+                                    // Server booting...
+                                </span>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="string">
+                                    &gt; Ready on localhost:3000
+                                </span>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="keyword">const</span>
+                                <span class="function">dev</span> =
+                                <span class="string">'Omar Derdare'</span>;
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="keyword">import</span>
+                                {
+                                <span class="function">passion</span>
+                                }
+                                <span class="keyword">from</span>
+                                <span class="string">'./heart'</span>;
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="prompt">$</span>
+                                <span class="cmd">git status</span>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="string">
+                                    On branch main
+                                </span>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="number">42</span>
+                                <span class="string">
+                                    commits ahead
+                                </span>
+                            </div>
+
                         </div>
+
                     </div>
-                    <div class="vertical-text rotate-180 font-mono text-xs text-gray-600 hidden md:block" style="writing-mode: vertical-rl;">
+
+                    <div
+                        class="vertical-text rotate-180 font-mono text-xs text-gray-600 hidden md:block"
+                        style="writing-mode: vertical-rl;"
+                    >
                         FULLSTACK /// DEV
                     </div>
+
                 </div>
 
-                <!-- Center -->
-                <div class="md:col-span-6 relative group flex justify-center items-center">
-                    <div class="relative w-full text-center" id="hero-card">
-                        <div class="flex justify-center gap-2 mb-6 hero-anim">
-                            <span class="badge badge-accent"><i class="ph ph-code"></i> Open to Work</span>
-                            <span class="badge badge-github"><i class="ph ph-github-logo"></i> 5+ Years</span>
+
+                <!-- CENTER -->
+                <div
+                    class="md:col-span-6 relative group flex justify-center items-center"
+                >
+
+                    <div
+                        id="hero-card"
+                        class="relative w-full text-center"
+                    >
+
+                        <div
+                            class="flex justify-center gap-2 mb-6 hero-anim"
+                        >
+
+                            <span class="badge badge-accent">
+                                <i class="ph ph-code"></i>
+                                Open to Work
+                            </span>
+
+                            <span class="badge badge-github">
+                                <i class="ph ph-github-logo"></i>
+                                5+ Years
+                            </span>
+
                         </div>
-                        <div class="font-mono text-xs text-brand-accent uppercase tracking-widest mb-6 hero-anim">
+
+                        <div
+                            class="font-mono text-xs text-brand-accent uppercase tracking-widest mb-6 hero-anim"
+                        >
                             &lt;Fullstack Developer /&gt;
                         </div>
-                        <h2 class="font-display text-5xl md:text-8xl font-bold uppercase leading-[0.85] text-white hero-anim">
+
+                        <h2
+                            class="font-display text-5xl md:text-8xl font-bold uppercase leading-[0.85] text-white hero-anim"
+                        >
                             Omar<br>
-                            <span class="text-brand-accent italic">Derdare</span>
+
+                            <span class="text-brand-accent italic">
+                                Derdare
+                            </span>
                         </h2>
-                        <p class="font-sans text-gray-400 mt-8 max-w-lg mx-auto text-lg leading-relaxed hero-anim">
-                            I build scalable web applications that merge clean architecture with bold design. From database to deployment.
+
+                        <p
+                            class="font-sans text-gray-400 mt-8 max-w-lg mx-auto text-lg leading-relaxed hero-anim"
+                        >
+                            I build scalable web applications that merge
+                            clean architecture with bold design. From database
+                            to deployment.
                         </p>
-                        <div class="mt-10 flex flex-wrap justify-center gap-4 hero-anim">
-                            <a href="projects.html" class="magnetic bg-white text-black px-8 py-3 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger">
+
+                        <div
+                            class="mt-10 flex flex-wrap justify-center gap-4 hero-anim"
+                        >
+
+                            <a
+                                href="projects.html"
+                                class="magnetic bg-white text-black px-8 py-3 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger"
+                            >
                                 View Projects
                             </a>
-                            <a href="contact.html" class="magnetic border border-white/30 text-white px-8 py-3 font-display font-bold uppercase text-sm tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors hover-trigger">
+
+                            <a
+                                href="contact.html"
+                                class="magnetic border border-white/30 text-white px-8 py-3 font-display font-bold uppercase text-sm tracking-wider hover:border-brand-accent hover:text-brand-accent transition-colors hover-trigger"
+                            >
                                 Get In Touch
                             </a>
+
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Right -->
-                <div class="md:col-span-3 hidden md:flex flex-col items-end justify-end h-2/3 pb-10">
+
+                <!-- RIGHT -->
+                <div
+                    class="md:col-span-3 hidden md:flex flex-col items-end justify-end h-2/3 pb-10"
+                >
+
                     <div class="apple-card mb-8 w-full">
+
                         <div class="flex items-center gap-3 mb-3">
-                            <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center">
-                                <i class="ph ph-apple-logo text-brand-accent text-xl"></i>
+
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center"
+                            >
+                                <i
+                                    class="ph ph-apple-logo text-brand-accent text-xl"
+                                ></i>
                             </div>
+
                             <div>
-                                <div class="text-sm font-medium text-white">macOS Environment</div>
-                                <div class="text-xs text-gray-500">Developer Setup</div>
+                                <div class="text-sm font-medium text-white">
+                                    macOS Environment
+                                </div>
+
+                                <div class="text-xs text-gray-500">
+                                    Developer Setup
+                                </div>
                             </div>
+
                         </div>
+
                         <div class="code-block text-xs">
-                            <span class="keyword">brew</span> install <span class="function">node</span><br>
-                            <span class="keyword">brew</span> install <span class="function">git</span><br>
-                            <span class="comment"># Ready to code</span>
+
+                            <span class="keyword">brew</span>
+                            install
+                            <span class="function">node</span>
+                            <br>
+
+                            <span class="keyword">brew</span>
+                            install
+                            <span class="function">git</span>
+                            <br>
+
+                            <span class="comment">
+                                # Ready to code
+                            </span>
+
                         </div>
+
                     </div>
+
                     <div class="flex flex-col items-center gap-4">
-                        <span class="text-[10px] uppercase tracking-widest rotate-90 origin-right translate-x-2">Scroll</span>
-                        <div class="h-24 w-[1px] bg-white/20 relative overflow-hidden">
-                            <div class="absolute top-0 left-0 w-full h-1/3 bg-brand-accent"></div>
+
+                        <span
+                            class="text-[10px] uppercase tracking-widest rotate-90 origin-right translate-x-2"
+                        >
+                            Scroll
+                        </span>
+
+                        <div
+                            class="h-24 w-[1px] bg-white/20 relative overflow-hidden"
+                        >
+                            <div
+                                class="absolute top-0 left-0 w-full h-1/3 bg-brand-accent"
+                            ></div>
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </header>
 
-    <!-- Marquee -->
-    <div class="bg-brand-accent text-brand-black py-4 overflow-hidden whitespace-nowrap border-y border-brand-black z-30 relative">
-        <div class="inline-block animate-marquee font-display font-bold text-2xl uppercase tracking-tighter">
-            React • Node.js • TypeScript • PostgreSQL • Next.js • Tailwind • Docker • AWS • GraphQL • Python • React • Node.js • TypeScript • PostgreSQL • Next.js • Tailwind • Docker • AWS • GraphQL • Python •
+
+    <!-- ================= MARQUEE ================= -->
+
+    <div
+        class="bg-brand-accent text-brand-black py-4 overflow-hidden whitespace-nowrap border-y border-brand-black z-30 relative"
+    >
+
+        <div
+            class="inline-block animate-marquee font-display font-bold text-2xl uppercase tracking-tighter"
+        >
+            React • Node.js • TypeScript • PostgreSQL • Next.js •
+            Tailwind • Docker • AWS • GraphQL • Python • React •
+            Node.js • TypeScript • PostgreSQL • Next.js • Tailwind •
+            Docker • AWS • GraphQL • Python •
         </div>
-        <div class="absolute top-0 inline-block animate-marquee2 font-display font-bold text-2xl uppercase tracking-tighter pl-4">
-            React • Node.js • TypeScript • PostgreSQL • Next.js • Tailwind • Docker • AWS • GraphQL • Python • React • Node.js • TypeScript • PostgreSQL • Next.js • Tailwind • Docker • AWS • GraphQL • Python •
+
+        <div
+            class="absolute top-0 inline-block animate-marquee2 font-display font-bold text-2xl uppercase tracking-tighter pl-4"
+        >
+            React • Node.js • TypeScript • PostgreSQL • Next.js •
+            Tailwind • Docker • AWS • GraphQL • Python • React •
+            Node.js • TypeScript • PostgreSQL • Next.js • Tailwind •
+            Docker • AWS • GraphQL • Python •
         </div>
+
     </div>
 
-    <!-- About / Manifesto -->
-    <section id="about" class="py-24 md:py-40 px-6 md:px-20 bg-brand-black relative z-20">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+
+    <!-- ================= ABOUT ================= -->
+
+    <section
+        id="about"
+        class="py-24 md:py-40 px-6 md:px-20 bg-brand-black relative z-20"
+    >
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center"
+        >
+
             <div class="md:col-span-7">
-                <h2 class="font-display text-5xl md:text-8xl font-bold uppercase leading-[0.9] mb-8 text-reveal-trigger">
+
+                <h2
+                    class="font-display text-5xl md:text-8xl font-bold uppercase leading-[0.9] mb-8 text-reveal-trigger"
+                >
                     I don't just<br>
-                    <span class="text-brand-gray outlined-text">write code.</span><br>
+
+                    <span class="text-brand-gray outlined-text">
+                        write code.
+                    </span>
+
+                    <br>
+
                     I craft solutions.
                 </h2>
+
             </div>
+
+
             <div class="md:col-span-5 flex flex-col justify-end h-full">
-                <p class="font-sans text-brand-white/70 text-lg leading-relaxed mb-8 max-w-md">
-                    With 5+ years of experience across the full stack, I turn complex problems into elegant, performant applications. Every line of code is intentional. Every pixel has purpose.
+
+                <p
+                    class="font-sans text-brand-white/70 text-lg leading-relaxed mb-8 max-w-md"
+                >
+                    With 5+ years of experience across the full stack,
+                    I turn complex problems into elegant, performant
+                    applications. Every line of code is intentional.
+                    Every pixel has purpose.
                 </p>
-                <div class="flex items-center gap-12 border-t border-white/10 pt-8">
+
+
+                <div
+                    class="flex items-center gap-12 border-t border-white/10 pt-8"
+                >
+
                     <div>
-                        <span class="block font-display text-4xl text-brand-accent counter" data-target="50">0+</span>
-                        <span class="text-xs uppercase tracking-widest text-white/50">Projects</span>
+                        <span
+                            class="block font-display text-4xl text-brand-accent counter"
+                            data-target="50"
+                        >
+                            0+
+                        </span>
+
+                        <span
+                            class="text-xs uppercase tracking-widest text-white/50"
+                        >
+                            Projects
+                        </span>
                     </div>
+
                     <div>
-                        <span class="block font-display text-4xl text-brand-accent counter" data-target="5">0+</span>
-                        <span class="text-xs uppercase tracking-widest text-white/50">Years Exp</span>
+                        <span
+                            class="block font-display text-4xl text-brand-accent counter"
+                            data-target="5"
+                        >
+                            0+
+                        </span>
+
+                        <span
+                            class="text-xs uppercase tracking-widest text-white/50"
+                        >
+                            Years Exp
+                        </span>
                     </div>
+
                     <div>
-                        <span class="block font-display text-4xl text-brand-accent counter" data-target="30">0+</span>
-                        <span class="text-xs uppercase tracking-widest text-white/50">Clients</span>
+                        <span
+                            class="block font-display text-4xl text-brand-accent counter"
+                            data-target="30"
+                        >
+                            0+
+                        </span>
+
+                        <span
+                            class="text-xs uppercase tracking-widest text-white/50"
+                        >
+                            Clients
+                        </span>
                     </div>
+
                 </div>
-                <!-- GitHub-style contribution graph -->
+
+
+                <!-- GitHub Graph -->
                 <div class="mt-8 apple-card">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-xs font-mono text-gray-500 uppercase">Coding Activity</span>
-                        <span class="badge badge-github text-[10px]">GitHub Style</span>
+
+                    <div
+                        class="flex items-center justify-between mb-3"
+                    >
+                        <span
+                            class="text-xs font-mono text-gray-500 uppercase"
+                        >
+                            Coding Activity
+                        </span>
+
+                        <span class="badge badge-github text-[10px]">
+                            GitHub Style
+                        </span>
                     </div>
-                    <div class="contrib-graph" id="contrib-graph"></div>
-                    <div class="flex justify-between mt-2 text-[10px] text-gray-600 font-mono">
+
+                    <div
+                        class="contrib-graph"
+                        id="contrib-graph"
+                    ></div>
+
+                    <div
+                        class="flex justify-between mt-2 text-[10px] text-gray-600 font-mono"
+                    >
+
                         <span>Less</span>
+
                         <div class="flex gap-1">
-                            <div class="w-2 h-2 rounded-sm bg-[#161b22]"></div>
-                            <div class="w-2 h-2 rounded-sm bg-[#FF3B3020]"></div>
-                            <div class="w-2 h-2 rounded-sm bg-[#FF3B3050]"></div>
-                            <div class="w-2 h-2 rounded-sm bg-[#FF3B3080]"></div>
-                            <div class="w-2 h-2 rounded-sm bg-[#FF3B30]"></div>
+
+                            <div
+                                class="w-2 h-2 rounded-sm bg-[#161b22]"
+                            ></div>
+
+                            <div
+                                class="w-2 h-2 rounded-sm bg-[#FF3B3020]"
+                            ></div>
+
+                            <div
+                                class="w-2 h-2 rounded-sm bg-[#FF3B3050]"
+                            ></div>
+
+                            <div
+                                class="w-2 h-2 rounded-sm bg-[#FF3B3080]"
+                            ></div>
+
+                            <div
+                                class="w-2 h-2 rounded-sm bg-[#FF3B30]"
+                            ></div>
+
                         </div>
+
                         <span>More</span>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Tech Stack -->
-    <section class="py-24 bg-brand-dark px-6 md:px-20 border-t border-white/5">
+
+    <!-- ================= TECH STACK ================= -->
+
+    <section
+        class="py-24 bg-brand-dark px-6 md:px-20 border-t border-white/5"
+    >
+
         <div class="mb-16">
-            <span class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-4 block">Arsenal</span>
-            <h3 class="font-display text-5xl md:text-7xl uppercase font-bold text-white">Tech<br><span class="text-brand-accent outlined-text">Stack</span></h3>
+
+            <span
+                class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-4 block"
+            >
+                Arsenal
+            </span>
+
+            <h3
+                class="font-display text-5xl md:text-7xl uppercase font-bold text-white"
+            >
+                Tech<br>
+
+                <span class="text-brand-accent outlined-text">
+                    Stack
+                </span>
+            </h3>
+
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-atom text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">React</span>
+
+
+        <div
+            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        >
+
+            <!-- Stack Item -->
+            <div class="stack-item">
+                <i class="ph ph-atom"></i>
+                <span>React</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-lightning text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Next.js</span>
+
+            <div class="stack-item">
+                <i class="ph ph-lightning"></i>
+                <span>Next.js</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-file-tsx text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">TypeScript</span>
+
+            <div class="stack-item">
+                <i class="ph ph-file-tsx"></i>
+                <span>TypeScript</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-server text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Node.js</span>
+
+            <div class="stack-item">
+                <i class="ph ph-server"></i>
+                <span>Node.js</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-database text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">PostgreSQL</span>
+
+            <div class="stack-item">
+                <i class="ph ph-database"></i>
+                <span>PostgreSQL</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-cloud text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">AWS</span>
+
+            <div class="stack-item">
+                <i class="ph ph-cloud"></i>
+                <span>AWS</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-docker-logo text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Docker</span>
+
+            <div class="stack-item">
+                <i class="ph ph-docker-logo"></i>
+                <span>Docker</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-git-branch text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Git</span>
+
+            <div class="stack-item">
+                <i class="ph ph-git-branch"></i>
+                <span>Git</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-paint-brush text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Tailwind</span>
+
+            <div class="stack-item">
+                <i class="ph ph-paint-brush"></i>
+                <span>Tailwind</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-graph text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">GraphQL</span>
+
+            <div class="stack-item">
+                <i class="ph ph-graph"></i>
+                <span>GraphQL</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-code text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Python</span>
+
+            <div class="stack-item">
+                <i class="ph ph-code"></i>
+                <span>Python</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-fire text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Firebase</span>
+
+            <div class="stack-item">
+                <i class="ph ph-fire"></i>
+                <span>Firebase</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-cube text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">Laravel</span>
+
+            <div class="stack-item">
+                <i class="ph ph-cube"></i>
+                <span>Laravel</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-file-code text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">PHP</span>
+
+            <div class="stack-item">
+                <i class="ph ph-file-code"></i>
+                <span>PHP</span>
             </div>
-            <div class="group p-6 border border-white/10 hover:border-brand-accent transition-all duration-300 bg-brand-black/50 text-center hover-trigger">
-                <i class="ph ph-table text-3xl text-brand-accent mb-3 block"></i>
-                <span class="font-mono text-xs uppercase text-gray-400 group-hover:text-white transition-colors">SQL</span>
+
+            <div class="stack-item">
+                <i class="ph ph-table"></i>
+                <span>SQL</span>
             </div>
+
         </div>
+
     </section>
 
-    <!-- Featured Projects -->
-    <section id="projects" class="py-20 bg-brand-black px-4 md:px-10">
-        <div class="flex justify-between items-end mb-16 px-2">
+
+    <!-- ================= PROJECTS ================= -->
+
+    <section
+        id="projects"
+        class="py-20 bg-brand-black px-4 md:px-10"
+    >
+
+        <div
+            class="flex justify-between items-end mb-16 px-2"
+        >
+
             <div>
-                <span class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-2 block">Selected</span>
-                <h3 class="font-display text-4xl uppercase font-bold">Featured Projects</h3>
+
+                <span
+                    class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-2 block"
+                >
+                    Selected
+                </span>
+
+                <h3
+                    class="font-display text-4xl uppercase font-bold"
+                >
+                    Featured Projects
+                </h3>
+
             </div>
-            <a href="projects.html" class="font-mono text-brand-accent hover:text-white transition-colors text-sm">View All →</a>
+
+            <a
+                href="projects.html"
+                class="font-mono text-brand-accent hover:text-white transition-colors text-sm"
+            >
+                View All →
+            </a>
+
         </div>
 
-       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8" id="portfolio-grid">
 
-            <div class="portfolio-card group hover-trigger" data-category="fullstack">
-                <div class="h-[350px] w-full overflow-hidden relative border border-white/10">
-                    <div class="portfolio-image w-full h-full bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80');" role="img" aria-label="Portfolio project preview"></div>
-                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
-                        <span class="font-display text-2xl uppercase tracking-widest text-white mb-2">Shopify Killer</span>
-                        <span class="font-mono text-xs text-brand-accent uppercase mb-4">React / Node / Stripe</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
-                        </div>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"
+            id="portfolio-grid"
+        >
+
+            <!-- PROJECT 1 -->
+            <article
+                class="portfolio-card group hover-trigger"
+                data-category="fullstack"
+            >
+
+                <div
+                    class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper"
+                >
+
+                    <div
+                        class="portfolio-image w-full h-full"
+                        role="img"
+                        aria-label="E-Commerce project preview"
+                    >
+                        <div class="slider-slide slide-active" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/ecom2/1200/800');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/ecom3/1200/800');"></div>
                     </div>
-                </div>
-                <div class="mt-4 flex justify-between border-b border-white/20 pb-2">
-                    <h4 class="font-display uppercase text-xl">E-Commerce Platform</h4>
-                    <span class="text-sm text-gray-500">2025</span>
-                </div>
-            </div>
 
-            <div class="portfolio-card group hover-trigger" data-category="fullstack">
-                <div class="h-[350px] w-full overflow-hidden relative border border-white/10">
-                    <div class="portfolio-image w-full h-full bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80');" role="img" aria-label="Portfolio project preview"></div>
-                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
-                        <span class="font-display text-2xl uppercase tracking-widest text-white mb-2">DataViz Pro</span>
-                        <span class="font-mono text-xs text-brand-accent uppercase mb-4">Next.js / D3 / PostgreSQL</span>
-                        <div class="flex gap-3">
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
-                        </div>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
                     </div>
-                </div>
-                <div class="mt-4 flex justify-between border-b border-white/20 pb-2">
-                    <h4 class="font-display uppercase text-xl">Analytics Dashboard</h4>
-                    <span class="text-sm text-gray-500">2024</span>
-                </div>
-            </div>
 
-            <div class="portfolio-card group hover-trigger" data-category="backend">
-                <div class="h-[350px] w-full overflow-hidden relative border border-white/10">
-                    <div class="portfolio-image w-full h-full bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80');" role="img" aria-label="Portfolio project preview"></div>
-                    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
-                        <span class="font-display text-2xl uppercase tracking-widest text-white mb-2">ChatStream</span>
-                        <span class="font-mono text-xs text-brand-accent uppercase mb-4">Socket.io / Redis / React</span>
+                    <div
+                        class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6"
+                    >
+
+                        <span
+                            class="font-display text-2xl uppercase tracking-widest text-white mb-2"
+                        >
+                            Shopify Killer
+                        </span>
+
+                        <span
+                            class="font-mono text-xs text-brand-accent uppercase mb-4"
+                        >
+                            React / Node / Stripe
+                        </span>
+
                         <div class="flex gap-3">
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 flex justify-between border-b border-white/20 pb-2">
-                    <h4 class="font-display uppercase text-xl">Real-Time Chat</h4>
-                    <span class="text-sm text-gray-500">2024</span>
-                </div>
-            </div>
 
-    <!-- Services -->
-    <section class="py-32 bg-brand-dark relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-gray/10 -skew-x-12 transform translate-x-1/4"></div>
-        <div class="container mx-auto px-6 relative z-10">
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                Live Demo
+                            </a>
+
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                GitHub
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="mt-4 flex justify-between border-b border-white/20 pb-2"
+                >
+
+                    <h4 class="font-display uppercase text-xl">
+                        E-Commerce Platform
+                    </h4>
+
+                    <span class="text-sm text-gray-500">
+                        2025
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 2 -->
+            <article
+                class="portfolio-card group hover-trigger"
+                data-category="fullstack"
+            >
+
+                <div
+                    class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper"
+                >
+
+                    <div
+                        class="portfolio-image w-full h-full"
+                        role="img"
+                        aria-label="Analytics project preview"
+                    >
+                        <div class="slider-slide slide-active" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/dataviz2/1200/800');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/dataviz3/1200/800');"></div>
+                    </div>
+
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+
+                    <div
+                        class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6"
+                    >
+
+                        <span
+                            class="font-display text-2xl uppercase tracking-widest text-white mb-2"
+                        >
+                            DataViz Pro
+                        </span>
+
+                        <span
+                            class="font-mono text-xs text-brand-accent uppercase mb-4"
+                        >
+                            Next.js / D3 / PostgreSQL
+                        </span>
+
+                        <div class="flex gap-3">
+
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                Live Demo
+                            </a>
+
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                GitHub
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="mt-4 flex justify-between border-b border-white/20 pb-2"
+                >
+
+                    <h4 class="font-display uppercase text-xl">
+                        Analytics Dashboard
+                    </h4>
+
+                    <span class="text-sm text-gray-500">
+                        2024
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- PROJECT 3 -->
+            <article
+                class="portfolio-card group hover-trigger"
+                data-category="backend"
+            >
+
+                <div
+                    class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper"
+                >
+
+                    <div
+                        class="portfolio-image w-full h-full"
+                        role="img"
+                        aria-label="Real time chat project preview"
+                    >
+                        <div class="slider-slide slide-active" style="background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/chat2/1200/800');"></div>
+                        <div class="slider-slide" style="background-image:url('https://picsum.photos/seed/chat3/1200/800');"></div>
+                    </div>
+
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+
+                    <div
+                        class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6"
+                    >
+
+                        <span
+                            class="font-display text-2xl uppercase tracking-widest text-white mb-2"
+                        >
+                            ChatStream
+                        </span>
+
+                        <span
+                            class="font-mono text-xs text-brand-accent uppercase mb-4"
+                        >
+                            Socket.io / Redis / React
+                        </span>
+
+                        <div class="flex gap-3">
+
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                Live Demo
+                            </a>
+
+                            <a
+                                href="#"
+                                class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                            >
+                                GitHub
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="mt-4 flex justify-between border-b border-white/20 pb-2"
+                >
+
+                    <h4 class="font-display uppercase text-xl">
+                        Real-Time Chat
+                    </h4>
+
+                    <span class="text-sm text-gray-500">
+                        2024
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <section
+        class="py-32 bg-brand-dark relative overflow-hidden"
+    >
+
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-brand-gray/10 -skew-x-12 transform translate-x-1/4"
+        ></div>
+
+        <div
+            class="container mx-auto px-6 relative z-10"
+        >
+
             <div class="mb-20">
-                <span class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-4 block">What I Do</span>
-                <h2 class="font-display text-6xl md:text-8xl uppercase font-bold outlined-text hover:text-white transition-all cursor-default">
+
+                <span
+                    class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-4 block"
+                >
+                    What I Do
+                </span>
+
+                <h2
+                    class="font-display text-6xl md:text-8xl uppercase font-bold outlined-text hover:text-white transition-all cursor-default"
+                >
                     Services
                 </h2>
+
             </div>
+
+
             <div class="space-y-0">
-                <a href="services.html" class="group border-t border-white/10 py-10 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white/5 transition-colors px-4 hover-trigger block">
-                    <span class="text-brand-accent font-mono text-xl mb-4 md:mb-0">01</span>
-                    <h3 class="font-display text-4xl md:text-6xl uppercase font-bold group-hover:translate-x-4 transition-transform duration-300">Web Development</h3>
-                    <p class="font-sans text-gray-400 max-w-sm md:text-right text-sm mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300">
-                        Fullstack web apps with React, Next.js, Node.js. Scalable, secure, and blazing fast.
+
+                <!-- Service 1 -->
+                <a
+                    href="services.html"
+                    class="service-row group"
+                >
+
+                    <span class="text-brand-accent font-mono text-xl">
+                        01
+                    </span>
+
+                    <h3
+                        class="font-display text-4xl md:text-6xl uppercase font-bold"
+                    >
+                        Web Development
+                    </h3>
+
+                    <p>
+                        Fullstack web apps with React, Next.js,
+                        Node.js. Scalable, secure, and blazing fast.
                     </p>
-                    <i class="ph ph-arrow-right text-2xl group-hover:translate-x-2 transition-transform duration-300"></i>
+
+                    <i class="ph ph-arrow-right text-2xl"></i>
+
                 </a>
-                <a href="services.html" class="group border-t border-white/10 py-10 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white/5 transition-colors px-4 hover-trigger block">
-                    <span class="text-brand-accent font-mono text-xl mb-4 md:mb-0">02</span>
-                    <h3 class="font-display text-4xl md:text-6xl uppercase font-bold group-hover:translate-x-4 transition-transform duration-300">API & Backend</h3>
-                    <p class="font-sans text-gray-400 max-w-sm md:text-right text-sm mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300">
-                        RESTful & GraphQL APIs, database architecture, authentication, and microservices.
+
+
+                <!-- Service 2 -->
+                <a
+                    href="services.html"
+                    class="service-row group"
+                >
+
+                    <span class="text-brand-accent font-mono text-xl">
+                        02
+                    </span>
+
+                    <h3
+                        class="font-display text-4xl md:text-6xl uppercase font-bold"
+                    >
+                        API & Backend
+                    </h3>
+
+                    <p>
+                        RESTful & GraphQL APIs, database architecture,
+                        authentication, and microservices.
                     </p>
-                    <i class="ph ph-arrow-right text-2xl group-hover:translate-x-2 transition-transform duration-300"></i>
+
+                    <i class="ph ph-arrow-right text-2xl"></i>
+
                 </a>
-                <a href="services.html" class="group border-t border-white/10 py-10 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white/5 transition-colors px-4 hover-trigger block">
-                    <span class="text-brand-accent font-mono text-xl mb-4 md:mb-0">03</span>
-                    <h3 class="font-display text-4xl md:text-6xl uppercase font-bold group-hover:translate-x-4 transition-transform duration-300">DevOps & Cloud</h3>
-                    <p class="font-sans text-gray-400 max-w-sm md:text-right text-sm mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300">
-                        Docker, CI/CD pipelines, AWS deployment, serverless architecture, and monitoring.
+
+
+                <!-- Service 3 -->
+                <a
+                    href="services.html"
+                    class="service-row group"
+                >
+
+                    <span class="text-brand-accent font-mono text-xl">
+                        03
+                    </span>
+
+                    <h3
+                        class="font-display text-4xl md:text-6xl uppercase font-bold"
+                    >
+                        DevOps & Cloud
+                    </h3>
+
+                    <p>
+                        Docker, CI/CD pipelines, AWS deployment,
+                        serverless architecture, and monitoring.
                     </p>
-                    <i class="ph ph-arrow-right text-2xl group-hover:translate-x-2 transition-transform duration-300"></i>
+
+                    <i class="ph ph-arrow-right text-2xl"></i>
+
                 </a>
-                <a href="services.html" class="group border-t border-b border-white/10 py-10 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white/5 transition-colors px-4 hover-trigger block">
-                    <span class="text-brand-accent font-mono text-xl mb-4 md:mb-0">04</span>
-                    <h3 class="font-display text-4xl md:text-6xl uppercase font-bold group-hover:translate-x-4 transition-transform duration-300">E-Commerce Landing Page</h3>
-                    <p class="font-sans text-gray-400 max-w-sm md:text-right text-sm mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-4 group-hover:translate-y-0 duration-300">
-                        High-converting storefront pages with product showcases, cart flow, and checkout ready to sell.
+
+
+                <!-- Service 4 -->
+                <a
+                    href="services.html"
+                    class="service-row group border-b"
+                >
+
+                    <span class="text-brand-accent font-mono text-xl">
+                        04
+                    </span>
+
+                    <h3
+                        class="font-display text-4xl md:text-6xl uppercase font-bold"
+                    >
+                        E-Commerce Landing Page
+                    </h3>
+
+                    <p>
+                        High-converting storefront pages with product
+                        showcases, cart flow, and checkout ready to sell.
                     </p>
-                    <i class="ph ph-arrow-right text-2xl group-hover:translate-x-2 transition-transform duration-300"></i>
+
+                    <i class="ph ph-arrow-right text-2xl"></i>
+
                 </a>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-24 bg-brand-dark text-white border-y border-white/5">
-        <div class="container mx-auto px-6 md:px-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+    <!-- ================= TESTIMONIALS ================= -->
+
+    <section
+        class="py-24 bg-brand-dark text-white border-y border-white/5"
+    >
+
+        <div
+            class="container mx-auto px-6 md:px-20"
+        >
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            >
+
                 <div class="relative">
-                    <div class="absolute -left-10 -top-10 text-9xl text-brand-accent opacity-20 font-serif">"</div>
-                    <blockquote class="font-display text-3xl md:text-5xl uppercase leading-tight relative z-10">
-                        Omar delivered beyond expectations. The code is clean, the architecture is solid, and the product just works.
+
+                    <div
+                        class="absolute -left-10 -top-10 text-9xl text-brand-accent opacity-20 font-serif"
+                    >
+                        "
+                    </div>
+
+                    <blockquote
+                        class="font-display text-3xl md:text-5xl uppercase leading-tight relative z-10"
+                    >
+                        Omar delivered beyond expectations.
+                        The code is clean, the architecture is solid,
+                        and the product just works.
                     </blockquote>
-                    <cite class="block mt-8 font-sans text-sm text-gray-400 not-italic">— Sarah Mitchell, <span class="text-white">CTO at TechFlow</span></cite>
+
+                    <cite
+                        class="block mt-8 font-sans text-sm text-gray-400 not-italic"
+                    >
+                        — Sarah Mitchell,
+                        <span class="text-white">
+                            CTO at TechFlow
+                        </span>
+                    </cite>
+
                 </div>
-                <div class="grid grid-cols-2 gap-8 border-l border-white/10 pl-8 md:pl-16">
+
+
+                <div
+                    class="grid grid-cols-2 gap-8 border-l border-white/10 pl-8 md:pl-16"
+                >
+
                     <div class="group hover-trigger">
-                        <span class="block font-display text-4xl font-bold text-white mb-1">99%</span>
-                        <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Client Satisfaction</span>
+                        <span
+                            class="block font-display text-4xl font-bold text-white mb-1"
+                        >
+                            99%
+                        </span>
+
+                        <span
+                            class="text-xs font-mono text-gray-500 uppercase tracking-widest"
+                        >
+                            Client Satisfaction
+                        </span>
                     </div>
+
                     <div class="group hover-trigger">
-                        <span class="block font-display text-4xl font-bold text-white mb-1">100%</span>
-                        <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">On-Time Delivery</span>
+                        <span
+                            class="block font-display text-4xl font-bold text-white mb-1"
+                        >
+                            100%
+                        </span>
+
+                        <span
+                            class="text-xs font-mono text-gray-500 uppercase tracking-widest"
+                        >
+                            On-Time Delivery
+                        </span>
                     </div>
+
                     <div class="group hover-trigger">
-                        <span class="block font-display text-4xl font-bold text-white mb-1">24/7</span>
-                        <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Support</span>
+                        <span
+                            class="block font-display text-4xl font-bold text-white mb-1"
+                        >
+                            24/7
+                        </span>
+
+                        <span
+                            class="text-xs font-mono text-gray-500 uppercase tracking-widest"
+                        >
+                            Support
+                        </span>
                     </div>
+
                     <div class="group hover-trigger">
-                        <span class="block font-display text-4xl font-bold text-white mb-1">0</span>
-                        <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">Bugs Shipped</span>
+                        <span
+                            class="block font-display text-4xl font-bold text-white mb-1"
+                        >
+                            0
+                        </span>
+
+                        <span
+                            class="text-xs font-mono text-gray-500 uppercase tracking-widest"
+                        >
+                            Bugs Shipped
+                        </span>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer
+        class="bg-black text-white pt-24 pb-12 border-t border-white/10"
+    >
+
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20"
+            >
+
                 <div class="md:col-span-6">
-                    <h2 class="font-display text-7xl md:text-9xl font-bold uppercase tracking-tighter leading-none mb-8">
-                        Let's<br><span class="text-brand-accent">Build.</span>
+
+                    <h2
+                        class="font-display text-7xl md:text-9xl font-bold uppercase tracking-tighter leading-none mb-8"
+                    >
+                        Let's<br>
+
+                        <span class="text-brand-accent">
+                            Build.
+                        </span>
                     </h2>
-                    <p class="font-sans text-xl text-gray-400 max-w-md">
-                        Have a project in mind? <br>
+
+                    <p
+                        class="font-sans text-xl text-gray-400 max-w-md"
+                    >
+                        Have a project in mind?<br>
                         Let's turn your vision into reality.
                     </p>
+
                 </div>
+
+
+                <!-- Sitemap -->
                 <div class="md:col-span-3 space-y-8 pt-4">
-                    <h4 class="font-display text-xl uppercase tracking-widest text-brand-accent">Sitemap</h4>
+
+                    <h4
+                        class="font-display text-xl uppercase tracking-widest text-brand-accent"
+                    >
+                        Sitemap
+                    </h4>
+
                     <ul class="space-y-4 font-sans text-gray-400">
-                        <li><a href="index.html" class="footer-link hover:text-white transition-colors">Home</a></li>
-                        <li><a href="about.html" class="footer-link hover:text-white transition-colors">About</a></li>
-                        <li><a href="projects.html" class="footer-link hover:text-white transition-colors">Projects</a></li>
-                        <li><a href="services.html" class="footer-link hover:text-white transition-colors">Services</a></li>
-                        <li><a href="contact.html" class="footer-link hover:text-white transition-colors">Contact</a></li>
+
+                        <li>
+                            <a
+                                href="index.html"
+                                class="footer-link hover:text-white transition-colors"
+                            >
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="about.html"
+                                class="footer-link hover:text-white transition-colors"
+                            >
+                                About
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="projects.html"
+                                class="footer-link hover:text-white transition-colors"
+                            >
+                                Projects
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="services.html"
+                                class="footer-link hover:text-white transition-colors"
+                            >
+                                Services
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="contact.html"
+                                class="footer-link hover:text-white transition-colors"
+                            >
+                                Contact
+                            </a>
+                        </li>
+
                     </ul>
+
                 </div>
+
+
+                <!-- Connect -->
                 <div class="md:col-span-3 space-y-8 pt-4">
-                    <h4 class="font-display text-xl uppercase tracking-widest text-brand-accent">Connect</h4>
-                    <ul class="space-y-4 font-sans text-gray-400 inline-block">
-                        <li><a href="#" class="footer-link hover:text-white transition-colors flex items-center gap-2"><i class="ph ph-github-logo"></i> GitHub</a></li>
-                        <li><a href="#" class="footer-link hover:text-white transition-colors flex items-center gap-2"><i class="ph ph-linkedin-logo"></i> LinkedIn</a></li>
-                        <li><a href="#" class="footer-link hover:text-white transition-colors flex items-center gap-2"><i class="ph ph-x-logo"></i> Twitter/X</a></li>
-                        <li><a href="#" class="footer-link hover:text-white transition-colors flex items-center gap-2"><i class="ph ph-envelope-simple"></i> Email</a></li>
+
+                    <h4
+                        class="font-display text-xl uppercase tracking-widest text-brand-accent"
+                    >
+                        Connect
+                    </h4>
+
+                    <ul
+                        class="space-y-4 font-sans text-gray-400 inline-block"
+                    >
+
+                        <li>
+                            <a
+                                href="#"
+                                class="footer-link hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                <i class="ph ph-github-logo"></i>
+                                GitHub
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#"
+                                class="footer-link hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                <i class="ph ph-linkedin-logo"></i>
+                                LinkedIn
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="#"
+                                class="footer-link hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                <i class="ph ph-x-logo"></i>
+                                Twitter/X
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="mailto:hello@example.com"
+                                class="footer-link hover:text-white transition-colors flex items-center gap-2"
+                            >
+                                <i class="ph ph-envelope-simple"></i>
+                                Email
+                            </a>
+                        </li>
+
                     </ul>
+
                 </div>
+
             </div>
-            <div class="border-y border-white/10 py-12 mb-12">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+
+
+            <!-- Newsletter -->
+
+            <div
+                class="border-y border-white/10 py-12 mb-12"
+            >
+
+                <div
+                    class="flex flex-col md:flex-row items-center justify-between gap-8"
+                >
+
                     <div class="w-full md:w-1/2">
-                        <label class="block font-display text-2xl uppercase mb-4">Subscribe to my newsletter</label>
-                        <form class="relative w-full" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
-                            <input type="email" placeholder="ENTER YOUR EMAIL" required
-                                class="w-full bg-transparent border-b border-gray-600 py-4 text-xl font-display uppercase tracking-widest focus:outline-none focus:border-brand-accent transition-colors placeholder:text-gray-700">
-                            <button type="submit"
-                                class="absolute right-0 top-1/2 -translate-y-1/2 text-brand-accent hover:text-white transition-colors uppercase font-bold tracking-widest text-sm hover-trigger">
+
+                        <label
+                            class="block font-display text-2xl uppercase mb-4"
+                        >
+                            Subscribe to my newsletter
+                        </label>
+
+                        <form
+                            class="relative w-full"
+                            onsubmit="event.preventDefault(); alert('Thanks for subscribing!');"
+                        >
+
+                            <input
+                                type="email"
+                                placeholder="ENTER YOUR EMAIL"
+                                required
+                                class="w-full bg-transparent border-b border-gray-600 py-4 text-xl font-display uppercase tracking-widest focus:outline-none focus:border-brand-accent transition-colors placeholder:text-gray-700"
+                            >
+
+                            <button
+                                type="submit"
+                                class="absolute right-0 top-1/2 -translate-y-1/2 text-brand-accent hover:text-white transition-colors uppercase font-bold tracking-widest text-sm hover-trigger"
+                            >
                                 Submit
                             </button>
+
                         </form>
+
                     </div>
-                    <div class="w-full md:w-auto text-right">
-                        <div class="inline-block w-24 h-24 border border-white/20 rounded-full flex items-center justify-center animate-spin-slow">
+
+
+                    <div
+                        class="w-full md:w-auto text-right"
+                    >
+
+                        <div
+                            class="inline-flex w-24 h-24 border border-white/20 rounded-full items-center justify-center animate-spin-slow"
+                        >
                             <i class="ph ph-code text-4xl"></i>
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
-            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-widest font-sans">
-                <p>© 2025 Omar Derdare. All Rights Reserved.<br>
-                    Built with <span class="text-brand-accent">♥</span> by <span class="underline decoration-brand-accent underline-offset-4 hover:text-brand-accent transition-colors hover-trigger"><a href="#" class="underline">Omar Derdare</a></span>.</p>
+
+
+            <!-- Copyright -->
+
+            <div
+                class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-widest font-sans"
+            >
+
+                <p>
+                    © 2025 Omar Derdare. All Rights Reserved.<br>
+
+                    Built with
+                    <span class="text-brand-accent">♥</span>
+                    by
+                    <a
+                        href="#"
+                        class="underline decoration-brand-accent underline-offset-4 hover:text-brand-accent transition-colors"
+                    >
+                        Omar Derdare
+                    </a>.
+                </p>
+
                 <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+
+                    <a
+                        href="#"
+                        class="hover:text-white transition-colors"
+                    >
+                        Privacy
+                    </a>
+
+                    <a
+                        href="#"
+                        class="hover:text-white transition-colors"
+                    >
+                        Terms
+                    </a>
+
                 </div>
+
             </div>
+
         </div>
+
     </footer>
 
+
+    <!-- Main JS -->
     <script src="script.js"></script>
+
+    <script>
+    // --- Portfolio card image sliders (3 images each, auto-rotating) ---
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.portfolio-slider-wrapper').forEach(function (wrapper, wrapperIndex) {
+            var slides = wrapper.querySelectorAll('.slider-slide');
+            var dots = wrapper.querySelectorAll('.slider-dot');
+            if (slides.length <= 1) return;
+
+            var current = 0;
+
+            function goTo(index) {
+                slides[current].classList.remove('slide-active');
+                dots[current] && dots[current].classList.remove('active');
+                current = index;
+                slides[current].classList.add('slide-active');
+                dots[current] && dots[current].classList.add('active');
+            }
+
+            var intervalMs = 3500;
+            var startDelay = (wrapperIndex % 5) * 400;
+
+            setTimeout(function () {
+                setInterval(function () {
+                    goTo((current + 1) % slides.length);
+                }, intervalMs);
+            }, startDelay);
+
+            dots.forEach(function (dot, i) {
+                dot.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    goTo(i);
+                });
+            });
+        });
+    });
+    </script>
+
 </body>
 </html>
