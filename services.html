@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Services offered by Omar Derdare — Fullstack development, APIs, DevOps.">
+    <meta name="description" content="Services offered by Omar Derdare — Landing pages, e-commerce stores, and custom fullstack builds.">
     <title>Services | Omar Derdare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,6 +33,7 @@
                         'marquee': 'marquee 25s linear infinite',
                         'marquee2': 'marquee2 25s linear infinite',
                         'scroll-down': 'scrollDown 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite',
+                        'pulse-ring': 'pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -46,6 +47,11 @@
                         scrollDown: {
                             '0%': { transform: 'translateY(-100%)' },
                             '100%': { transform: 'translateY(100%)' }
+                        },
+                        pulseRing: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0.6' },
+                            '70%': { transform: 'scale(1.4)', opacity: '0' },
+                            '100%': { transform: 'scale(1.4)', opacity: '0' }
                         }
                     }
                 }
@@ -95,7 +101,7 @@
             </div>
             <a href="about.html" class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger">About</a>
             <a href="projects.html" class="font-display uppercase tracking-widest text-sm hover:text-brand-accent transition-colors hover-trigger">Work</a>
-            <a href="contact.html" class="bg-white text-black px-6 py-2 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger">Hire Me</a>
+            <a href="https://wa.me/212600000000" target="_blank" class="bg-white text-black px-6 py-2 font-display font-bold uppercase text-sm tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger flex items-center gap-2"><i class="ph ph-whatsapp-logo text-base"></i> Hire Me</a>
         </div>
         <button class="hamburger md:hidden hover-trigger z-50 relative focus:outline-none" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </nav>
@@ -134,21 +140,21 @@
                         <span class="font-mono text-brand-accent text-xl">01</span>
                     </div>
                     <div class="md:col-span-4">
-                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">Web Development</h3>
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">Landing Pages</h3>
                         <div class="h-1 w-16 bg-brand-accent"></div>
                     </div>
                     <div class="md:col-span-4">
-                        <p class="font-sans text-gray-400 leading-relaxed mb-6">End-to-end web applications using modern frameworks. From responsive frontends to robust backends, I deliver production-ready solutions that scale with your business.</p>
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">High-converting single pages built to turn visitors into leads. Fast loading, mobile-first, and structured around one clear call to action.</p>
                         <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> React / Next.js / Vue</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Node.js / Express / Fastify</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> PostgreSQL / MongoDB / Redis</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> TypeScript / Testing / CI/CD</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Conversion-focused layout</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Responsive on every device</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Contact / lead forms</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> SEO-ready structure</li>
                         </ul>
                     </div>
                     <div class="md:col-span-3">
                         <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
-                            <i class="ph ph-browser text-5xl text-brand-accent"></i>
+                            <i class="ph ph-rocket-launch text-5xl text-brand-accent"></i>
                         </div>
                     </div>
                 </div>
@@ -160,21 +166,21 @@
                         <span class="font-mono text-brand-accent text-xl">02</span>
                     </div>
                     <div class="md:col-span-4">
-                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">API & Backend</h3>
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">E-Commerce</h3>
                         <div class="h-1 w-16 bg-brand-accent"></div>
                     </div>
                     <div class="md:col-span-4">
-                        <p class="font-sans text-gray-400 leading-relaxed mb-6">RESTful and GraphQL APIs designed for performance and reliability. Authentication, authorization, caching, and database optimization included.</p>
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">Full online stores built to sell. Product catalogs, cart and checkout flow, and secure payment integration, all built to turn browsers into buyers.</p>
                         <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> REST / GraphQL / gRPC</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> JWT / OAuth / RBAC</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Microservices Architecture</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> API Documentation</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Product catalog & showcase</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Cart & checkout flow</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Payment gateway integration</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Order & inventory management</li>
                         </ul>
                     </div>
                     <div class="md:col-span-3">
                         <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
-                            <i class="ph ph-plugs text-5xl text-brand-accent"></i>
+                            <i class="ph ph-storefront text-5xl text-brand-accent"></i>
                         </div>
                     </div>
                 </div>
@@ -194,8 +200,8 @@
                         <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
                             <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Docker / Kubernetes</li>
                             <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> AWS / GCP / Vercel</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> GitHub Actions / Jenkins</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Monitoring & Logging</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> CI/CD pipelines</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Monitoring & logging</li>
                         </ul>
                     </div>
                     <div class="md:col-span-3">
@@ -206,27 +212,105 @@
                 </div>
             </div>
 
-            <div class="group border-t border-b border-white/10 py-16 md:py-24 hover:bg-white/[0.02] transition-colors px-4 hover-trigger">
+            <div class="group border-t border-white/10 py-16 md:py-24 hover:bg-white/[0.02] transition-colors px-4 hover-trigger">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                     <div class="md:col-span-1">
                         <span class="font-mono text-brand-accent text-xl">04</span>
                     </div>
                     <div class="md:col-span-4">
-                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">E-Commerce Landing Page</h3>
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">API & Backend</h3>
                         <div class="h-1 w-16 bg-brand-accent"></div>
                     </div>
                     <div class="md:col-span-4">
-                        <p class="font-sans text-gray-400 leading-relaxed mb-6">Conversion-focused storefront pages for your products. Product showcases, cart & checkout flow, and payment integration, built to turn visitors into buyers.</p>
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">RESTful and GraphQL APIs designed for performance and reliability. Authentication, authorization, caching, and database optimization included.</p>
                         <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Product Showcase / Vitrine</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Cart & Checkout Flow</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Payment Gateway Integration</li>
-                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Laravel / PHP / SQL Backend</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> REST / GraphQL / gRPC</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> JWT / OAuth / RBAC</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Microservices architecture</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> API documentation</li>
                         </ul>
                     </div>
                     <div class="md:col-span-3">
                         <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
-                            <i class="ph ph-storefront text-5xl text-brand-accent"></i>
+                            <i class="ph ph-plugs text-5xl text-brand-accent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group border-t border-white/10 py-16 md:py-24 hover:bg-white/[0.02] transition-colors px-4 hover-trigger">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-1">
+                        <span class="font-mono text-brand-accent text-xl">05</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">SEO & Marketing</h3>
+                        <div class="h-1 w-16 bg-brand-accent"></div>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">Sites built to be found, not just to look good. Technical SEO, fast load times, and tracking set up so you can see what's actually working.</p>
+                        <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Technical & on-page SEO</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Site speed optimization</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Analytics & pixel tracking</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Landing pages for campaigns</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
+                            <i class="ph ph-chart-line-up text-5xl text-brand-accent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group border-t border-white/10 py-16 md:py-24 hover:bg-white/[0.02] transition-colors px-4 hover-trigger">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-1">
+                        <span class="font-mono text-brand-accent text-xl">06</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">AI & Automation</h3>
+                        <div class="h-1 w-16 bg-brand-accent"></div>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">AI-powered features and chatbots built into your product, plus automations that remove repetitive work from your day-to-day operations.</p>
+                        <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> AI chatbots & assistants</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> LLM integration (OpenAI, Claude)</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Workflow automation</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Data pipelines & scraping</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
+                            <i class="ph ph-brain text-5xl text-brand-accent"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group border-t border-b border-white/10 py-16 md:py-24 hover:bg-white/[0.02] transition-colors px-4 hover-trigger">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-1">
+                        <span class="font-mono text-brand-accent text-xl">07</span>
+                    </div>
+                    <div class="md:col-span-4">
+                        <h3 class="font-display text-4xl md:text-6xl uppercase font-bold text-white mb-4">Custom Project</h3>
+                        <div class="h-1 w-16 bg-brand-accent"></div>
+                    </div>
+                    <div class="md:col-span-4">
+                        <p class="font-sans text-gray-400 leading-relaxed mb-6">Got something else in mind? Web app, internal tool, API, or a full platform — I build whatever the project needs, from scratch or on top of what you already have.</p>
+                        <ul class="space-y-2 font-mono text-xs text-gray-500 uppercase">
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Web apps & dashboards</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> APIs & backend systems</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Automation & integrations</li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Built around your requirements</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="w-full h-48 bg-brand-gray border border-white/10 flex items-center justify-center">
+                            <i class="ph ph-sparkle text-5xl text-brand-accent"></i>
                         </div>
                     </div>
                 </div>
@@ -273,43 +357,62 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div class="border border-white/10 p-8 hover:border-brand-accent transition-colors duration-300 group hover-trigger">
                 <span class="font-mono text-xs uppercase tracking-widest text-gray-500">Starter</span>
-                <h3 class="font-display text-4xl uppercase font-bold text-white mt-2 mb-6">$2,500</h3>
-                <p class="font-sans text-gray-400 text-sm mb-8">Perfect for MVPs and small projects.</p>
+                <h3 class="font-display text-4xl uppercase font-bold text-white mt-2 mb-6">1,499 DH</h3>
+                <p class="font-sans text-gray-400 text-sm mb-8">Perfect for a landing page or a simple, focused site.</p>
                 <ul class="space-y-3 font-sans text-sm text-gray-300 mb-8">
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Single-page application</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Single-page site</li>
                     <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Responsive design</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Basic API integration</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> 2 weeks delivery</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Contact / lead form</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Delivered in ~1 week</li>
                 </ul>
-                <a href="contact.html" class="block w-full text-center border border-white/20 py-3 font-display uppercase text-sm tracking-wider hover:bg-white hover:text-black transition-colors">Get Started</a>
+                <a href="https://wa.me/212600000000" target="_blank" class="block w-full text-center border border-white/20 py-3 font-display uppercase text-sm tracking-wider hover:bg-white hover:text-black transition-colors">Get Started</a>
             </div>
             <div class="border border-brand-accent p-8 relative group hover-trigger">
                 <div class="absolute top-0 right-0 bg-brand-accent text-black text-[10px] font-bold uppercase px-3 py-1">Popular</div>
                 <span class="font-mono text-xs uppercase tracking-widest text-brand-accent">Professional</span>
-                <h3 class="font-display text-4xl uppercase font-bold text-white mt-2 mb-6">$7,500</h3>
-                <p class="font-sans text-gray-400 text-sm mb-8">Full-featured apps for growing businesses.</p>
+                <h3 class="font-display text-4xl uppercase font-bold text-white mt-2 mb-6">3,000 DH</h3>
+                <p class="font-sans text-gray-400 text-sm mb-8">Full e-commerce store or a multi-page fullstack site.</p>
                 <ul class="space-y-3 font-sans text-sm text-gray-300 mb-8">
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Fullstack application</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Database & Auth</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Multi-page / online store</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Database & authentication</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Cart & payment integration</li>
                     <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Admin dashboard</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> API development</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> 4-6 weeks delivery</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Delivered in 2-4 weeks</li>
                 </ul>
-                <a href="contact.html" class="block w-full text-center bg-brand-accent text-black py-3 font-display uppercase text-sm tracking-wider hover:bg-white transition-colors">Get Started</a>
+                <a href="https://wa.me/212600000000" target="_blank" class="block w-full text-center bg-brand-accent text-black py-3 font-display uppercase text-sm tracking-wider hover:bg-white transition-colors">Get Started</a>
             </div>
             <div class="border border-white/10 p-8 hover:border-brand-accent transition-colors duration-300 group hover-trigger">
                 <span class="font-mono text-xs uppercase tracking-widest text-gray-500">Enterprise</span>
                 <h3 class="font-display text-4xl uppercase font-bold text-white mt-2 mb-6">Custom</h3>
-                <p class="font-sans text-gray-400 text-sm mb-8">Tailored solutions for complex needs.</p>
+                <p class="font-sans text-gray-400 text-sm mb-8">Tailored solutions for complex, larger-scale needs.</p>
                 <ul class="space-y-3 font-sans text-sm text-gray-300 mb-8">
                     <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Multi-platform apps</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Microservices</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> DevOps setup</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> APIs, AI & automation</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> DevOps & cloud setup</li>
                     <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Dedicated support</li>
-                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Ongoing maintenance</li>
+                    <li class="flex items-center gap-2"><i class="ph ph-check text-brand-accent"></i> Scope discussed on WhatsApp</li>
                 </ul>
-                <a href="contact.html" class="block w-full text-center border border-white/20 py-3 font-display uppercase text-sm tracking-wider hover:bg-white hover:text-black transition-colors">Contact Me</a>
+                <a href="https://wa.me/212600000000" target="_blank" class="block w-full text-center border border-white/20 py-3 font-display uppercase text-sm tracking-wider hover:bg-white hover:text-black transition-colors">Contact Me</a>
             </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp CTA -->
+    <section class="py-32 bg-brand-black px-6 md:px-20 border-t border-white/5">
+        <div class="text-center mb-16">
+            <span class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-4 block">Let's Talk</span>
+            <h2 class="font-display text-5xl md:text-7xl uppercase font-bold text-white max-w-4xl mx-auto leading-[0.95]">Every project is <span class="text-brand-accent">different.</span></h2>
+            <p class="font-sans text-gray-400 max-w-xl mx-auto mt-6">Landing page, online store, or something custom — send me the details on WhatsApp and I'll get back to you with scope and timeline.</p>
+        </div>
+        <div class="flex justify-center">
+            <a href="https://wa.me/212600000000" target="_blank" class="relative inline-flex items-center gap-4 bg-brand-accent text-black px-10 md:px-14 py-5 md:py-6 font-display font-bold uppercase text-lg md:text-xl tracking-wider hover:bg-white transition-colors hover-trigger">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-black"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
+                </span>
+                <i class="ph ph-whatsapp-logo text-3xl"></i>
+                Chat on WhatsApp
+            </a>
         </div>
     </section>
 
@@ -318,7 +421,7 @@
         <div class="container mx-auto px-6 text-center">
             <h2 class="font-display text-6xl md:text-8xl uppercase font-bold text-white mb-8">Let's <span class="text-brand-accent">build</span> something great.</h2>
             <p class="font-sans text-gray-400 max-w-xl mx-auto mb-12">Every great product starts with a conversation. Tell me about your project.</p>
-            <a href="contact.html" class="inline-block bg-white text-black px-12 py-4 font-display font-bold uppercase text-lg tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger">Start a Project</a>
+            <a href="https://wa.me/212600000000" target="_blank" class="inline-block bg-white text-black px-12 py-4 font-display font-bold uppercase text-lg tracking-wider hover:bg-brand-accent hover:text-white transition-colors hover-trigger">Start a Project</a>
         </div>
     </section>
 
