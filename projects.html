@@ -118,6 +118,196 @@
     background: #FF3B30;
     width: 18px;
 }
+
+/* --- Dashboard Access modal (replaces the plain browser alert) --- */
+#dashboard-access-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(6px);
+}
+#dashboard-access-overlay.hidden { display: none; }
+
+.dashboard-access-card {
+    width: min(420px, 92vw);
+    background: #0d0d0d;
+    border: 1px solid rgba(255,59,48,0.25);
+    border-radius: 18px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+.dashboard-access-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, rgba(255,59,48,0.08), transparent);
+}
+.dashboard-access-header i {
+    color: #FF3B30;
+    font-size: 1.3rem;
+    flex: 0 0 auto;
+}
+.dashboard-access-header h3 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 1rem;
+    color: #f5f5f5;
+    flex: 1 1 auto;
+}
+.dashboard-access-close {
+    background: transparent;
+    border: 0;
+    color: #9a9a9a;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+    flex: 0 0 auto;
+}
+.dashboard-access-close:hover { color: #fff; }
+
+.dashboard-access-body {
+    padding: 20px;
+}
+.dashboard-access-body p.dashboard-access-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: #9a9a9a;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+.dashboard-access-project {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #FF3B30;
+    margin-bottom: 14px;
+    display: block;
+}
+
+.credential-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.credential-row:last-of-type { margin-bottom: 18px; }
+.credential-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #7a7a7a;
+    flex: 0 0 auto;
+}
+.credential-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #f5f5f5;
+    flex: 1 1 auto;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.credential-copy-btn {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #d0d0d0;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.credential-copy-btn:hover {
+    background: #f5f5f5;
+    color: #0a0a0a;
+}
+.credential-copy-btn.copied {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #fff;
+}
+
+.dashboard-access-actions {
+    display: flex;
+    gap: 10px;
+}
+.dashboard-access-go {
+    flex: 1 1 auto;
+    text-align: center;
+    background: #FF3B30;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 11px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+.dashboard-access-go:hover { opacity: 0.88; }
+.dashboard-access-cancel {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #d0d0d0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.dashboard-access-cancel:hover {
+    background: #f5f5f5;
+    color: #0a0a0a;
+}
+
+/* --- Cursor fix: the site's custom cursor (.cursor-dot / .cursor-outline)
+   was being painted UNDER the modal because both ended up on a similar
+   z-index and the modal comes later in the DOM. Force the custom cursor
+   to always render above any overlay on the page. */
+.cursor-dot,
+.cursor-outline {
+    z-index: 2147483647 !important;
+}
+
+/* Fallback: if the custom cursor script doesn't track mouse position while
+   a fixed overlay is open (some implementations only bind to specific
+   elements), fall back to the normal system cursor inside our modals so a
+   pointer is always visible. */
+#dashboard-access-overlay,
+#dashboard-access-overlay * {
+    cursor: auto;
+}
+#dashboard-access-overlay button,
+#dashboard-access-overlay a,
+#dashboard-access-overlay .dashboard-access-close {
+    cursor: pointer;
+}
 </style>
 </head>
 <body class="antialiased selection:bg-brand-accent selection:text-white">
@@ -207,9 +397,9 @@
             <div class="portfolio-card group hover-trigger" data-category="fullstack">
                 <div class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper">
                     <div class="portfolio-image w-full h-full" role="img" aria-label="E-Commerce Platform preview">
-                        <div class="slider-slide slide-active" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80');"></div>
-                        <div class="slider-slide" style="background-image: url('https://picsum.photos/seed/ecom2/1200/800');"></div>
-                        <div class="slider-slide" style="background-image: url('https://picsum.photos/seed/ecom3/1200/800');"></div>
+                        <div class="slider-slide slide-active" style="background-image: url('https://i.pinimg.com/736x/70/9a/64/709a64d6ad645a1ddb3a70ac7440c630.jpg');"></div>
+                        <div class="slider-slide" style="background-image: url('image/eco1.png');"></div>
+                        <div class="slider-slide" style="background-image: url('image/eco2.png');"></div>
                     </div>
                     <div class="slider-dots">
                         <span class="slider-dot active"></span>
@@ -218,10 +408,22 @@
                     </div>
                     <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
                         <span class="font-display text-2xl uppercase tracking-widest text-white mb-2">Shopify Killer</span>
-                        <span class="font-mono text-xs text-brand-accent uppercase mb-4">React / Node / Stripe</span>
+                        <span class="font-mono text-xs text-brand-accent uppercase mb-4">php / javascript / SQL</span>
                         <div class="flex gap-3">
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
-                            <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
+                            <a href="https://luxe-clothing-by-omar.freedev.app/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">
+                                View
+                            </a>
+                            <button type="button"
+                                    class="dashboard-trigger hover-trigger text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                                    data-project="E-Commerce Platform"
+                                    data-dashboard-url="https://luxe-clothing-by-omar.freedev.app/admin/"
+                                    data-dashboard-user="admin@store.test"
+                                    data-dashboard-pass="Admin@123">
+                                Dashboard
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -254,21 +456,21 @@
             </span>
 
             <div class="flex gap-3">
-                <a 
-                    href="https://spa-build-by-omar.site.je/" 
+                <a
+                    href="https://spa-build-by-omar.site.je/"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">
-                    Live Demo
+                    View
                 </a>
-
-                <a 
-                    href="YOUR_GITHUB_REPOSITORY_URL" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">
-                    GitHub
-                </a>
+                <button type="button"
+                        class="dashboard-trigger hover-trigger text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                        data-project="Spa Booking Platform"
+                        data-dashboard-url="https://spa-build-by-omar.site.je/admin/login.php"
+                        data-dashboard-user="admin"
+                        data-dashboard-pass="Admin@12345">
+                    Dashboard
+                </button>
             </div>
         </div>
     </div>
@@ -306,6 +508,14 @@
                         <div class="flex gap-3">
                             <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
                             <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
+                            <button type="button"
+                                    class="dashboard-trigger hover-trigger text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                                    data-project="Real-Time Chat"
+                                    data-dashboard-url="#"
+                                    data-dashboard-user="demo_admin"
+                                    data-dashboard-pass="Chat@Demo2024">
+                                Dashboard
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -341,6 +551,35 @@
                     <span class="text-sm text-gray-500">2024</span>
                 </div>
             <p class="mt-3 text-sm leading-6 text-gray-400 max-w-2xl">Premium static catering website with a modern, responsive design showcasing services, chefs, venues, and luxury culinary experiences.</p></div>
+        
+<div class="portfolio-card group hover-trigger" data-category="frontend">
+    <div class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper">
+        <div class="portfolio-image w-full h-full" role="img" aria-label="Car Reservation Website preview">
+            <div class="slider-slide slide-active" style="background-image: url('https://i.pinimg.com/736x/bf/e5/d0/bfe5d0dfeefaf1a97efa5e6eb1a503d0.jpg');"></div>
+            <div class="slider-slide" style="background-image: url('image/car1.png');"></div>
+            <div class="slider-slide" style="background-image: url('https://i.pinimg.com/1200x/10/ac/3a/10ac3a1aa046d2efda27a6f23689c583.jpg');"></div>
+        </div>
+        <div class="slider-dots">
+            <span class="slider-dot active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+        </div>
+        <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6">
+            <span class="font-display text-2xl uppercase tracking-widest text-white mb-2">Car Reservation Website</span>
+            <span class="font-mono text-xs text-brand-accent uppercase mb-4">react / html / css / javascript</span>
+            <div class="flex gap-3">
+                <a href="https://react-car-reservation-app.vercel.app/" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Live Demo</a>
+                <a href="https://github.com/omar-derdare/React-Car-Reservation-App.git" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 flex justify-between border-b border-white/20 pb-2">
+        <h4 class="font-display uppercase text-xl">Car Reservation Website</h4>
+        <span class="text-sm text-gray-500">2026</span>
+    </div>
+    <p class="mt-3 text-sm leading-6 text-gray-400 max-w-2xl">Modern and responsive car reservation website built with React, HTML, CSS, and JavaScript, featuring a smooth interface for browsing cars and making reservations.</p>
+</div>
+
 
             <div class="portfolio-card group hover-trigger" data-category="landingpage">
                 <div class="h-[350px] w-full overflow-hidden relative border border-white/10 portfolio-slider-wrapper">
@@ -414,6 +653,14 @@
                         <div class="flex gap-3">
                             <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">Docs</a>
                             <a href="#" class="text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors">GitHub</a>
+                            <button type="button"
+                                    class="dashboard-trigger hover-trigger text-xs border border-white/30 px-4 py-2 hover:bg-white hover:text-black transition-colors"
+                                    data-project="Payment Gateway API"
+                                    data-dashboard-url="#"
+                                    data-dashboard-user="demo_admin"
+                                    data-dashboard-pass="PayGate@Demo2023">
+                                Dashboard
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -425,6 +672,45 @@
 
         </div>
     </section>
+
+    <!-- Dashboard Access modal (shared by every fullstack card's "Dashboard" button) -->
+    <div id="dashboard-access-overlay" class="hidden">
+        <div class="dashboard-access-card" role="dialog" aria-modal="true" aria-labelledby="dashboard-access-title">
+            <div class="dashboard-access-header">
+                <i class="ph ph-lock-key"></i>
+                <h3 id="dashboard-access-title">Dashboard Access</h3>
+                <button type="button" class="dashboard-access-close" id="dashboard-access-close" aria-label="Close">
+                    <i class="ph ph-x"></i>
+                </button>
+            </div>
+            <div class="dashboard-access-body">
+                <span id="dashboard-access-project" class="dashboard-access-project">Project</span>
+                <p class="dashboard-access-note">Use these demo credentials to explore the admin dashboard. This is a sandbox account — no real data is affected.</p>
+
+                <div class="credential-row">
+                    <span class="credential-label">Username</span>
+                    <span id="dashboard-access-user" class="credential-value">—</span>
+                    <button type="button" class="credential-copy-btn" data-copy-target="dashboard-access-user" aria-label="Copy username">
+                        <i class="ph ph-copy"></i>
+                    </button>
+                </div>
+                <div class="credential-row">
+                    <span class="credential-label">Password</span>
+                    <span id="dashboard-access-pass" class="credential-value">—</span>
+                    <button type="button" class="credential-copy-btn" data-copy-target="dashboard-access-pass" aria-label="Copy password">
+                        <i class="ph ph-copy"></i>
+                    </button>
+                </div>
+
+                <div class="dashboard-access-actions">
+                    <button type="button" class="dashboard-access-cancel" id="dashboard-access-cancel">Cancel</button>
+                    <a id="dashboard-access-go" class="dashboard-access-go" href="#" target="_blank" rel="noopener noreferrer">
+                        Go to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
@@ -500,6 +786,94 @@
             });
         });
     });
+    </script>
+
+    <script>
+    // =================================================================
+    // Dashboard Access modal — one reusable component shared by every
+    // fullstack card's "Dashboard" button (data-project / data-dashboard-*
+    // attributes), replacing the old per-card inline alert().
+    // =================================================================
+    (function () {
+        var overlay = document.getElementById('dashboard-access-overlay');
+        var card = overlay.querySelector('.dashboard-access-card');
+        var projectEl = document.getElementById('dashboard-access-project');
+        var userEl = document.getElementById('dashboard-access-user');
+        var passEl = document.getElementById('dashboard-access-pass');
+        var goBtn = document.getElementById('dashboard-access-go');
+        var closeBtn = document.getElementById('dashboard-access-close');
+        var cancelBtn = document.getElementById('dashboard-access-cancel');
+
+        function openModal(trigger) {
+            var project = trigger.getAttribute('data-project') || 'Project';
+            var dashboardUrl = trigger.getAttribute('data-dashboard-url') || '#';
+            var user = trigger.getAttribute('data-dashboard-user') || '—';
+            var pass = trigger.getAttribute('data-dashboard-pass') || '—';
+
+            // textContent everywhere — never innerHTML — so nothing here can
+            // be used to inject markup even if a data attribute changes later.
+            projectEl.textContent = project;
+            userEl.textContent = user;
+            passEl.textContent = pass;
+            goBtn.href = dashboardUrl;
+
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.dashboard-trigger').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                openModal(btn);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeModal();
+        });
+        card.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeModal();
+        });
+
+        // Copy-to-clipboard for username/password rows.
+        document.querySelectorAll('.credential-copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var targetId = btn.getAttribute('data-copy-target');
+                var target = document.getElementById(targetId);
+                if (!target) return;
+
+                var text = target.textContent;
+                var restoreIcon = btn.innerHTML;
+
+                function markCopied() {
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<i class="ph ph-check"></i>';
+                    setTimeout(function () {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = restoreIcon;
+                    }, 1400);
+                }
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+                        markCopied(); // clipboard API can fail silently in some contexts; UI still confirms intent
+                    });
+                } else {
+                    markCopied();
+                }
+            });
+        });
+    })();
     </script>
 </body>
 </html>
